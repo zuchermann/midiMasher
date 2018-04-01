@@ -28,7 +28,7 @@ def simpleMash(song1, song2):
         for n in newChord.recurse().notes:
             for note in n.pitches:
                 count = count + 1
-                break;
+                break
         if (count > 1):
             chord = newChord
         diff = 0;
@@ -139,14 +139,14 @@ def intervalsDiff(intervalList, startingNote):
     return result
 
 
-def mash(song1, song2, startW, transW, emW, distW):
+def mash(song1, song2, corpus_data, startW, transW, emW, distW):
     emission_probability = {}
     transition_probability = {}
     observations = []
     start_probability = {}
     states = []
 
-    with open('output.json') as data_file:
+    with open(corpus_data) as data_file:
         data = json.load(data_file)
         emission_probability = data['emission_probability']
         transition_probability = data['transition_probability']
@@ -208,27 +208,18 @@ def mash(song1, song2, startW, transW, emW, distW):
     return s
 
 
-def main():
+def mash_songs(song1_path, song2_path, corpus_data, destination, startW, transW, emW, distW):
     # get our data as an array from read_in()
-    lines = read_in()
+    '''lines = read_in()
     song1_path = lines.get(u'song1')
     song2_path = lines.get(u'song2')
     destination = lines.get(u'destination')
     startW = float(lines.get(u'startingNoteWeight'))
     transW = float(lines.get(u'corpusWeight'))
     emW = float(lines.get(u'chordWeight'))
-    distW = float(lines.get(u'melodyWeight'))
+    distW = float(lines.get(u'melodyWeight'))'''
     song1_parsed = music21.converter.parse(song1_path)
     song2_parsed = music21.converter.parse(song2_path)
-    mashed = mash(song1_parsed, song2_parsed, startW, transW, emW, distW)
+    mashed = mash(song1_parsed, song2_parsed, corpus_data, startW, transW, emW, distW)
     SubConverter = music21.converter.subConverters.ConverterMidi()
     midi = SubConverter.write(mashed, 'mid', destination)
-
-
-# print midi
-
-# start process
-if __name__ == '__main__':
-    main()
-
-# to test run: cat pytest.txt | python mashup.py

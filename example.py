@@ -1,4 +1,5 @@
 from learn import start_learning, test_file
+from mashup import mash_songs
 
 """
 
@@ -36,3 +37,30 @@ from learn import start_learning, test_file
 
 # EXAMPLE USE:
 # test_file("./corpus/isntshelovely.xml", "./testMelody.mid", "./testChords.mid")
+
+
+#########################################################################################
+# PERFORMS A MASHUP!                                                                    #
+# INPUT: (song1_path, song2_path, corpus_data, destination, startW, transW, emW, distW) #
+# song1_path = path to song (musicXML or midi) from which melody will be used           #
+# song2_path = path to song (musicXML or midi) from which chords will be used           #
+# corpus_data = path to data that has been extracted via the "start_learning"...        #
+#   function that was described above                                                   #
+# destination = destination file that will store the mashup result, this is a midi...   #
+#   file, so make sure the path ends in .mid                                            #
+# startW = float from 0.0 to 1.0 indicating the importance of the first note in the...  #
+#   song1 melody on the resultant melody                                                #
+# transW = float from 0.0 to 1.0 indicating the importance of the state transitions...  #
+#   transitions learned from the corpus on the resultant melody                         #
+# emW = float from 0.0 to 1.0 indicating the importance of the chords in song2 on...    #
+#   the resultant melody                                                                #
+# distW = float from 0.0 to 1.0 indicating the importance of the melody in song1 on...  #
+#   the resultant melody                                                                #
+
+
+# EXAMPLE USE:
+#mash_songs("./corpus/isntshelovely.xml", "./corpus/Gymnopedie.xml", "output.json", "mash.mid", 0.5, 0.4, 0.6, 0.5)
+
+# NOTE: the result of the above line may be a bit skewed in our fafor since both #
+# song1 and song2 are in the corpus, however, we would need a much larger corpus #
+# to get these sorts of results on unseen data                                   #
